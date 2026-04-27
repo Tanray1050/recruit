@@ -111,7 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,
 .form-group.full{grid-column:1/-1;}
 label{font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.5px;}
 label span{color:#ff8a65;margin-left:3px;}
-input,select,textarea{border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:11px 14px;font-size:0.9rem;font-family:'Noto Sans JP',sans-serif;color:#0d2a4d;transition:border-color .2s;outline:none;width:100%;background:rgba(255,255,255,0.95);}
+input,select,textarea{border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:11px 14px;font-size:0.75rem;font-family:'Noto Sans JP',sans-serif;color:#0d2a4d;transition:border-color .2s;outline:none;width:100%;background:rgba(255,255,255,0.95);}
 input:focus,select:focus,textarea:focus{border-color:#42a5f5;box-shadow:0 0 0 3px rgba(66,165,245,0.2);}
 textarea{min-height:110px;resize:vertical;}
 .form-notice{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:1.2rem;line-height:1.6;}
@@ -324,7 +324,24 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
         <div class="form-group full"><label>経歴・志望動機（任意）</label><textarea placeholder="これまでの経験やタンレイ工業を志望した理由を自由にご記入ください。"></textarea></div>
       </div>
       <p class="form-notice">※ いただいた個人情報は採用目的のみに使用します。<br>〒950-3322 新潟県新潟市北区太田甲104-1　TEL：025-387-1050</p>
-      <button class="submit-btn">応募する →</button>
+      <button class="submit-btn" onclick="sendEntryMail()">応募する →</button>
+<script>
+function sendEntryMail() {
+  const fields = document.querySelectorAll('#form input, #form select, #form textarea');
+  const labels = document.querySelectorAll('#form label');
+  let body = '【中途採用応募】\n\n';
+  fields.forEach((field, i) => {
+    const label = labels[i] ? labels[i].innerText.replace('*','').trim() : '';
+    if (label && field.value) {
+      body += label + '：' + field.value + '\n';
+    }
+  });
+  body += '\n--\nタンレイ工業株式会社 採用ページより';
+  const subject = encodeURIComponent('【応募】タンレイ工業 中途採用');
+  const bodyEnc = encodeURIComponent(body);
+  window.location.href = 'mailto:recruit@tanray.co.jp?subject=' + subject + '&body=' + bodyEnc;
+}
+</script>
     </div>
   </div>
 </section>
@@ -335,5 +352,33 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
   <span style="margin-top:4px;display:block;">© 2025 タンレイ工業株式会社 All rights reserved.</span>
 </footer>
 
+
+<!-- 固定フローティングボタン -->
+<a href="#form" style="
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:999;
+  background:#fdd835;
+  color:#0d2a4d;
+  font-family:'Noto Serif JP',serif;
+  font-size:0.7rem;
+  font-weight:900;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  box-shadow:0 6px 24px rgba(0,0,0,0.2);
+  text-decoration:none;
+  letter-spacing:0.5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  line-height:1.3;
+  text-align:center;
+  transition:transform .2s,box-shadow .2s;
+" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 30px rgba(0,0,0,0.25)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.2)'"
+>✉<span>応募する</span></a>
 </body>
 </html>
