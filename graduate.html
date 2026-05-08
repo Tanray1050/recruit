@@ -192,6 +192,73 @@ textarea{min-height:110px;resize:vertical;}
 /* ===== FOOTER ===== */
 footer{background:#060f1e;color:rgba(255,255,255,0.4);text-align:center;padding:2rem;font-size:0.78rem;letter-spacing:1px;}
 footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
+
+/* スマホ用改行制御 */
+.sp-break::after{content:none;}
+.sp-break2{display:inline;}
+
+/* ===== スマホ最適化 (max-width: 768px) ===== */
+@media(max-width:768px){
+
+  /* ナビ */
+  nav{padding:0.7rem 1.2rem;}
+
+  /* ヒーロー */
+  .hero{padding:6rem 1.2rem 3rem;min-height:auto;}
+  .hero-tag{font-size:9px;letter-spacing:2px;padding:4px 12px;}
+  h1{font-size:clamp(1.4rem,6vw,2rem);letter-spacing:0px;margin-bottom:1.2rem;word-break:keep-all;}
+  .hero-sub{font-size:0.88rem;line-height:1.8;margin-bottom:2rem;}
+
+  /* セクション共通 */
+  .sec{padding:3rem 1.2rem;}
+  .sec-title{font-size:clamp(1.3rem,5vw,1.8rem);}
+  .sec-eyebrow{font-size:9px;}
+  .sec-desc{font-size:0.88rem;}
+
+  /* 約束セクション */
+  #promise .sec-title{font-size:1.3rem;}
+
+  /* 募集職種 */
+  .job-grid{grid-template-columns:1fr;}
+  .job-card{padding:1.3rem;}
+  .job-name{font-size:1rem;}
+  .job-desc{font-size:0.82rem;}
+
+  /* 福利厚生・数字カード */
+  .benefit-grid{grid-template-columns:repeat(2,1fr);gap:0.8rem;}
+  .benefit-card{padding:1rem 0.8rem;}
+  .benefit-value span[style*="3rem"]{font-size:2.2rem !important;}
+  .benefit-value span[style*="2.2rem"]{font-size:1.6rem !important;}
+  .benefit-value span[style*="1.6rem"]{font-size:1.3rem !important;}
+  .benefit-value span[style*="1rem"]{font-size:0.8rem !important;}
+
+  /* 選考フロー */
+  .flow-steps{flex-direction:row !important;flex-wrap:nowrap;justify-content:center;}
+  .flow-step{min-width:0;flex:1;}
+  .flow-step:not(:last-child)::after{content:"→" !important;right:-12px !important;top:22px !important;bottom:auto !important;left:auto !important;transform:none !important;}
+  .flow-name{font-size:0.85rem;}
+  .sp-break::after{content:"\A";white-space:pre;}
+  .sp-break2{display:block;height:0;}
+  .flow-note{font-size:0.72rem;}
+
+  /* PR動画 */
+  #movie .sec-title{font-size:1.3rem;}
+  #movie p{font-size:0.85rem;}
+
+  /* 応募フォーム */
+  .form-grid{grid-template-columns:1fr;}
+  .form-sec .sec-title{font-size:1.3rem;}
+  .submit-btn{font-size:0.9rem;padding:14px 24px;}
+
+  /* 右下フローティングボタン */
+  a[style*="position:fixed"]{
+    width:52px !important;
+    height:52px !important;
+    bottom:16px !important;
+    right:16px !important;
+    font-size:0.65rem !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -205,7 +272,8 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
 <section class="hero">
   <div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:0;"></div><div class="hero-inner">
     <div class="hero-tag">NEW GRADUATE RECRUIT 2027</div>
-    <h1 style="color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,0.9),0 4px 24px rgba(0,0,0,0.7);">あなたの「つくりたい」を、<br><span style="color:#fdd835;">ここで形にしよう。</span></h1>
+    <h1 style="color:#ffffff;text-shadow:0 2px 12px rgba(0,0,0,0.9),0 4px 24px rgba(0,0,0,0.7);">「つくりたい」を、<br>
+    <span style="color:#fdd835;">ここで形にしよう。</span></h1>
     <p class="hero-sub">タンレイ工業は、新卒入社1年目から本物の仕事を任せます。失敗を恐れず、仲間と一緒に成長できる環境があります。あなたの情熱と向上心を、私たちは全力でサポートします。</p>
   </div>
 </section>
@@ -354,7 +422,7 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
       <div class="flow-step">
         <div class="flow-num">2</div>
         <div class="flow-name">一次面接</div>
-        <div class="flow-note">会社説明会参加者<br>は免除</div>
+        <div class="flow-note"><span class="sp-break">会社説明会</span>参加者は免除</div>
       </div>
       <div class="flow-step">
         <div class="flow-num">3</div>
@@ -363,7 +431,7 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
       </div>
       <div class="flow-step">
         <div class="flow-num">🎉</div>
-        <div class="flow-name">内定・内々定</div>
+        <div class="flow-name">内定</div>
         <div class="flow-note">一緒に働きましょう！</div>
       </div>
     </div>

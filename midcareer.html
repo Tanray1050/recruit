@@ -77,10 +77,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,
 .flow-steps{display:flex;gap:0;flex-wrap:wrap;margin-top:2rem;}
 .flow-step{flex:1;min-width:140px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;}
 .flow-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:22px;font-size:1.2rem;color:#90caf9;font-weight:700;}
-@media(max-width:600px){
-  .flow-steps{flex-direction:column;gap:1rem;}
-  .flow-step:not(:last-child)::after{content:'↓';right:auto;top:auto;bottom:-18px;left:50%;transform:translateX(-50%);}
-}
+
 .flow-num{width:48px;height:48px;border-radius:50%;background:#1565c0;color:white;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin-bottom:0.8rem;flex-shrink:0;box-shadow:0 4px 12px rgba(21,101,192,0.3);}
 .flow-name{font-size:0.88rem;font-weight:700;color:#0d2a4d;margin-bottom:0.3rem;}
 .flow-note{font-size:0.75rem;color:#90a4ae;line-height:1.5;}
@@ -106,7 +103,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,
 .form-sec .sec-desc{color:rgba(255,255,255,0.6);}
 .form-wrap{max-width:640px;position:relative;z-index:1;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
-@media(max-width:540px){.form-grid{grid-template-columns:1fr;}}
+
 .form-group{display:flex;flex-direction:column;gap:6px;}
 .form-group.full{grid-column:1/-1;}
 label{font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.5px;}
@@ -120,6 +117,71 @@ textarea{min-height:110px;resize:vertical;}
 
 footer{background:#060f1e;color:rgba(255,255,255,0.4);text-align:center;padding:2rem;font-size:0.78rem;letter-spacing:1px;}
 footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
+
+/* スマホ用改行制御 */
+.sp-break::after{content:none;}
+
+/* ===== スマホ最適化 (max-width: 768px) ===== */
+@media(max-width:768px){
+
+  /* ナビ */
+  nav{padding:0.7rem 1.2rem;}
+
+  /* ヒーロー */
+  .hero{padding:6rem 1.2rem 3rem;min-height:auto;}
+  .hero-tag{font-size:9px;letter-spacing:2px;padding:4px 12px;}
+  .hero h1{font-size:clamp(1.4rem,6vw,2rem);letter-spacing:0px;margin-bottom:1.2rem;word-break:keep-all;}
+  .hero-sub{font-size:0.88rem;line-height:1.8;margin-bottom:2rem;}
+
+  /* セクション共通 */
+  .sec{padding:3rem 1.2rem;}
+  .sec-title{font-size:clamp(1.3rem,5vw,1.8rem);}
+  .sec-eyebrow{font-size:9px;}
+  .sec-desc{font-size:0.88rem;}
+
+  /* 約束セクション */
+  #promise .sec-title{font-size:1.3rem;}
+
+  /* 募集職種 */
+  .job-grid{grid-template-columns:1fr;}
+  .job-card{padding:1.3rem;}
+  .job-name{font-size:1rem;}
+  .job-desc{font-size:0.82rem;}
+
+  /* 福利厚生・数字カード */
+  .benefit-grid{grid-template-columns:repeat(2,1fr);gap:0.8rem;}
+  .benefit-card{padding:1rem 0.8rem;}
+  .benefit-value span[style*="3rem"]{font-size:2.2rem !important;}
+  .benefit-value span[style*="2.2rem"]{font-size:1.6rem !important;}
+  .benefit-value span[style*="1.6rem"]{font-size:1.3rem !important;}
+  .benefit-value span[style*="1rem"]{font-size:0.8rem !important;}
+
+  /* 選考フロー */
+  .flow-steps{flex-direction:row !important;flex-wrap:nowrap;justify-content:center;}
+  .flow-step{min-width:0;flex:1;}
+  .flow-step:not(:last-child)::after{content:"→" !important;right:-12px !important;top:22px !important;bottom:auto !important;left:auto !important;transform:none !important;}
+  .flow-name{font-size:0.85rem;}
+  .flow-note{font-size:0.72rem;}
+  .sp-break::after{content:"\A";white-space:pre;}
+
+  /* PR動画 */
+  #movie .sec-title{font-size:1.3rem;}
+  #movie p{font-size:0.85rem;}
+
+  /* 応募フォーム */
+  .form-grid{grid-template-columns:1fr;}
+  .form-sec .sec-title{font-size:1.3rem;}
+  .submit-btn{font-size:0.9rem;padding:14px 24px;}
+
+  /* 右下フローティングボタン */
+  a[style*="position:fixed"]{
+    width:52px !important;
+    height:52px !important;
+    bottom:16px !important;
+    right:16px !important;
+    font-size:0.65rem !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -146,62 +208,99 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
   <div class="container">
     <div class="sec-eyebrow">Job Description</div>
     <h2 class="sec-title">募集職種</h2>
-    <p class="sec-desc">即戦力として活躍できるポジションを4つ用意しています。経験・スキルに応じて処遇を優遇します。</p>
+    
     <div class="job-grid">
       <div class="job-card">
-        <div class="job-icon">📐</div>
-        <div class="job-name">設計（経験者）</div>
-        <div class="job-desc">CADを用いた製品設計・図面作成をお任せします。前職での設計経験を活かし、即日から現場で活躍いただけます。チームリーダー候補も歓迎。</div>
-        <span class="job-tag">実務経験3年以上</span>
+        <div class="job-name">プレスオペレーター</div>
+        <div class="job-desc">プレス機械を使った金属成形を担当。経験者優遇、即戦力として活躍いただけます。</div>
       </div>
       <div class="job-card">
-        <div class="job-icon">🏗️</div>
-        <div class="job-name">施設管理（経験者）</div>
-        <div class="job-desc">工場設備の保守・点検・改善提案をお任せします。電気・機械の保全経験がある方を優遇。資格保有者は手当あり。</div>
-        <span class="job-tag">保全経験歓迎</span>
+        <div class="job-name">旋削エンジニア</div>
+        <div class="job-desc">旋盤機械を使った精密加工を担当。加工経験者歓迎、高い技術力を活かせる環境です。</div>
       </div>
       <div class="job-card">
-        <div class="job-icon">⚙️</div>
-        <div class="job-name">旋削エンジニア（経験者）</div>
-        <div class="job-desc">旋盤加工の経験を活かして即戦力として活躍いただけます。高精度加工の技術を持つ方、マシニング経験者も歓迎。</div>
-        <span class="job-tag">加工経験者優遇</span>
+        <div class="job-name">研削エンジニア</div>
+        <div class="job-desc">研削盤を使った精密加工を担当。寸法精度へのこだわりを持つ方を歓迎します。</div>
       </div>
       <div class="job-card">
-        <div class="job-icon">🔩</div>
-        <div class="job-name">プレスオペレーター（経験者）</div>
-        <div class="job-desc">プレス機械の操作・段取り・品質管理をお任せします。後輩指導の経験がある方はリーダー職としての採用も可能です。</div>
-        <span class="job-tag">リーダー候補歓迎</span>
+        <div class="job-name">熱処理オペレーター</div>
+        <div class="job-desc">金属部品の熱処理工程を担当。品質と安全を守りながら、高度な技術を活かせます。</div>
+      </div>
+      <div class="job-card">
+        <div class="job-name">経理</div>
+        <div class="job-desc">日常的な経理業務全般を担当。簿記資格保有者・経理経験者を優遇します。</div>
+      </div>
+      <div class="job-card">
+        <div class="job-name">フォークリフト作業員</div>
+        <div class="job-desc">プレス工程での材料・製品の運搬業務を担当。安全・正確な運搬で製造ラインを支えます。</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 待遇 -->
+<!-- 福利厚生 -->
 <section class="sec benefits-sec" id="benefits">
   <div class="container">
     <div class="sec-eyebrow">Benefits</div>
     <h2 class="sec-title">福利厚生</h2>
-    <p class="sec-desc">経験・スキルに応じた処遇で迎え入れます。前職の給与も考慮します。</p>
-    <div class="benefit-grid">
-      
+    <p class="sec-desc">安心して長く働ける環境を整えています。</p>
+            <div class="benefit-grid">
       <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">奨学金補助</span><br><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">あり</span></div>
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">奨学金補助</span></div>
       </div>
-      <div class="benefit-card">
-        
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">誕生日休暇</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">資格取得<br>支援</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">積立有休<br>制度</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">階層別研修</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1.6rem;font-weight:900;color:#1565c0;letter-spacing:1px;">インフルエンザ<br>予防接種無料</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1.6rem;font-weight:900;color:#1565c0;letter-spacing:1px;">クリーニング無料</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 数字でみるタンレイ -->
+<section class="sec benefits-sec" id="numbers">
+  <div class="container">
+    <div class="sec-eyebrow">Numbers</div>
+    <h2 class="sec-title">数字でみるタンレイ</h2>
+        <div class="benefit-grid">
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">従業員数</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">267</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">名</span></div>
+        <div class="benefit-note" style="text-align:center;">2026年4月時点</div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
         <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">年間休日</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">120</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">日</span></div>
-        <div class="benefit-note" style="text-align:center;">誕生日休暇・計画有休含む</div>
       </div>
       <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">誕生日休暇</span><br><span style="font-size:2.2rem;font-weight:900;color:#1565c0;letter-spacing:1px;">あり</span></div>
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">月平均残業時間</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">6</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">h</span></div>
       </div>
       <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">平均残業</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">4.5</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">h</span></div>
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">平均有給取得日数</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">16</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">日</span></div>
       </div>
-      <div class="benefit-card">
-        <div class="benefit-label">入社サポート</div>
-        <div class="benefit-value">引越し支援・住宅補助</div>
-        <div class="benefit-note">県外からの転職者歓迎</div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">男性育休取得率</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">100</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">%</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">新卒3年定着率</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">90</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">%</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">資格取得支援</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">50</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">種類以上</span></div>
+      </div>
+      <div class="benefit-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div class="benefit-value" style="text-align:center;line-height:1.3;"><span style="font-size:1rem;font-weight:700;color:#546e7a;letter-spacing:1px;">積立有給休暇　最大</span><br><span style="font-size:3rem;font-weight:900;color:#1565c0;letter-spacing:2px;">80</span><span style="font-size:1.6rem;font-weight:900;color:#1565c0;">日</span></div>
       </div>
     </div>
   </div>
@@ -212,124 +311,93 @@ footer strong{color:white;font-family:'Noto Serif JP',serif;font-size:0.95rem;}
   <div class="container">
     <div class="sec-eyebrow">Selection Flow</div>
     <h2 class="sec-title">選考フロー</h2>
-    <p class="sec-desc">最短2週間での内定を目指しています。お気軽にご応募ください。</p>
+
     <div class="flow-steps">
       <div class="flow-step">
         <div class="flow-num">1</div>
-        <div class="flow-name">書類応募</div>
-        <div class="flow-note">フォームまたは<br>お電話でご応募</div>
+        <div class="flow-name">エントリー</div>
       </div>
       <div class="flow-step">
         <div class="flow-num">2</div>
         <div class="flow-name">書類選考</div>
-        <div class="flow-note">3営業日以内に<br>結果をご連絡</div>
       </div>
       <div class="flow-step">
         <div class="flow-num">3</div>
-        <div class="flow-name">面接（1回）</div>
-        <div class="flow-note">現場責任者・<br>人事との面談</div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-num">4</div>
-        <div class="flow-name">工場見学</div>
-        <div class="flow-note">実際の現場を<br>確認いただけます</div>
+        <div class="flow-name">面接</div>
+        <div class="flow-note">適性検査あり</div>
       </div>
       <div class="flow-step">
         <div class="flow-num">🎉</div>
-        <div class="flow-name">内定・入社</div>
-        <div class="flow-note">入社日はご相談<br>の上決定します</div>
+        <div class="flow-name">内定</div>
+        <div class="flow-note">一緒に働きましょう！</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 先輩インタビュー -->
-<section class="sec interview-sec" id="interview">
-  <div class="container">
-    <div class="sec-eyebrow">Senior Interview</div>
-    <h2 class="sec-title">中途入社の先輩社員</h2>
-    <p class="sec-desc">転職してきた先輩たちの本音を聞きました。</p>
-    <div class="interview-grid">
-      <div class="interview-card">
-        <div class="interview-header">
-          <div class="avatar">👨‍🔧</div>
-          <div>
-            <div class="interview-name">田中 誠</div>
-            <div class="interview-role">旋削エンジニア</div>
-            <span class="interview-year">2020年 中途入社</span>
-          </div>
-        </div>
-        <div class="interview-q">転職を決めた理由は？</div>
-        <div class="quote-mark">"</div>
-        <div class="interview-a">前職では技術を活かせる場が少なく、もっと本格的な加工ができる環境を求めていました。タンレイ工業は設備が充実していて、入社してすぐに高精度加工を任せてもらえたのが嬉しかったです。</div>
-        <div class="interview-q">転職して良かった点は？</div>
-        <div class="interview-a">給与も上がり、休日もしっかり取れます。何より「やりがい」が全然違う。毎日新しい発見があります。</div>
-      </div>
-      <div class="interview-card">
-        <div class="interview-header">
-          <div class="avatar">👩‍💼</div>
-          <div>
-            <div class="interview-name">鈴木 麻衣</div>
-            <div class="interview-role">設計</div>
-            <span class="interview-year">2021年 中途入社</span>
-          </div>
-        </div>
-        <div class="interview-q">転職前の不安はありましたか？</div>
-        <div class="quote-mark">"</div>
-        <div class="interview-a">異業種からの転職だったので不安でしたが、面接で現場の方と直接話せて、雰囲気の良さを実感できました。入社後も丁寧なフォローがあって安心できました。</div>
-        <div class="interview-q">職場環境はどうですか？</div>
-        <div class="interview-a">風通しが良く、意見を言いやすい環境です。女性も働きやすく、長く続けられると感じています。</div>
-      </div>
-      <div class="interview-card">
-        <div class="interview-header">
-          <div class="avatar">🧑‍🏭</div>
-          <div>
-            <div class="interview-name">中村 剛</div>
-            <div class="interview-role">施設管理</div>
-            <span class="interview-year">2022年 中途入社</span>
-          </div>
-        </div>
-        <div class="interview-q">入社後のギャップは？</div>
-        <div class="quote-mark">"</div>
-        <div class="interview-a">想像以上に裁量が大きくて驚きました。入社半年でプロジェクトを任されたときは責任を感じましたが、サポートも手厚く、充実した毎日を送っています。</div>
-        <div class="interview-q">新潟での暮らしは？</div>
-        <div class="interview-a">自然が豊かで生活費も安く、子育てにも最高の環境です。会社の引越し支援もあったので助かりました。</div>
+<!-- PR動画 -->
+<section class="sec" style="background:#0d2a4d;position:relative;overflow:hidden;" id="movie">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(21,101,192,0.3),transparent 60%),radial-gradient(circle at 70% 50%,rgba(253,216,53,0.08),transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:1;text-align:center;">
+    <div class="sec-eyebrow" style="color:#90caf9;">PR Movie</div>
+    <h2 class="sec-title" style="color:#ffffff;margin-bottom:0.6rem;">タンレイ工業を、動画で知る。</h2>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:2.5rem;">現場のリアルな声と雰囲気を、ぜひ動画でご覧ください。</p>
+    <div style="position:relative;max-width:760px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);">
+      <div style="position:relative;padding-top:56.25%;background:#000;">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/BxKRiJorZy8?rel=0&modestbranding=1&origin=null"
+          title="タンレイ工業 PR動画"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;inset:0;width:100%;height:100%;">
+        </iframe>
       </div>
     </div>
+
+    <!-- 2本目のYouTube動画 -->
+    <div style="position:relative;max-width:760px;margin:2rem auto 0;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);">
+      <div style="position:relative;padding-top:56.25%;background:#000;">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/--kPC1XeuF8?rel=0&modestbranding=1&origin=null"
+          title="タンレイ工業 PR動画2"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;inset:0;width:100%;height:100%;">
+        </iframe>
+      </div>
+    </div>
+    <p style="margin-top:1.8rem;font-size:0.82rem;color:rgba(255,255,255,0.35);letter-spacing:1px;">TANRAY INDUSTRY CO., LTD.</p>
   </div>
 </section>
+
+
 
 <!-- 応募フォーム -->
 <section class="sec form-sec" id="form">
   <div class="container">
     <div class="sec-eyebrow">Apply</div>
     <h2 class="sec-title">応募する</h2>
-    <p class="sec-desc">まずはお気軽にご連絡ください。職歴・経験が不完全でも構いません。</p>
+    <p class="sec-desc">まずは気軽にエントリーを。書類選考なし、カジュアル面談から始めます。</p>
     <div class="form-wrap">
       <div class="form-grid">
         <div class="form-group"><label>お名前<span>*</span></label><input type="text" placeholder="山田 太郎"></div>
         <div class="form-group"><label>ふりがな<span>*</span></label><input type="text" placeholder="やまだ たろう"></div>
-        <div class="form-group"><label>メールアドレス<span>*</span></label><input type="email" placeholder="example@email.com"></div>
-        <div class="form-group"><label>電話番号</label><input type="tel" placeholder="090-0000-0000"></div>
-        <div class="form-group"><label>現在の職業</label><input type="text" placeholder="○○株式会社 ○○部門"></div>
-        <div class="form-group"><label>希望職種</label>
-          <select><option value="">選択してください</option><option>設計</option><option>施設管理</option><option>旋削エンジニア</option><option>プレスオペレーター</option><option>未定・相談したい</option></select>
-        </div>
-        <div class="form-group"><label>経験年数</label>
-          <select><option value="">選択してください</option><option>1〜3年</option><option>3〜5年</option><option>5〜10年</option><option>10年以上</option></select>
-        </div>
-        <div class="form-group"><label>入社希望時期</label>
-          <select><option value="">選択してください</option><option>即日〜1ヶ月以内</option><option>2〜3ヶ月以内</option><option>3〜6ヶ月以内</option><option>相談したい</option></select>
+        <div class="form-group"><label>年齢<span>*</span></label><input type="text" placeholder="28歳"></div>
+        <div class="form-group"><label>連絡先<span>*</span></label><input type="tel" placeholder="090-0000-0000"></div>
+        <div class="form-group full"><label>希望職種<span>*</span></label>
+          <select><option value="">選択してください</option><option>プレスオペレーター</option><option>旋削エンジニア</option><option>研削エンジニア</option><option>熱処理オペレーター</option><option>経理</option><option>フォークリフト作業員</option><option>未定・相談したい</option></select>
         </div>
         <div class="form-group full"><label>経歴・志望動機（任意）</label><textarea placeholder="これまでの経験やタンレイ工業を志望した理由を自由にご記入ください。"></textarea></div>
       </div>
-      <p class="form-notice">※ いただいた個人情報は採用目的のみに使用します。<br>〒950-3322 新潟県新潟市北区太田甲104-1　TEL：025-387-1050</p>
+      <p class="form-notice"><p class="form-notice"><p class="form-notice"><p class="form-notice">※ いただいた個人情報は採用目的のみに使用します。<br>〒950-3322 新潟県新潟市北区太田甲104-1　TEL：025-387-1050</p>
       <button class="submit-btn" onclick="sendEntryMail()">応募する →</button>
 <script>
 function sendEntryMail() {
   const fields = document.querySelectorAll('#form input, #form select, #form textarea');
   const labels = document.querySelectorAll('#form label');
-  let body = '【中途採用応募】\n\n';
+  let body = '【中途採用エントリー】\n\n';
   fields.forEach((field, i) => {
     const label = labels[i] ? labels[i].innerText.replace('*','').trim() : '';
     if (label && field.value) {
@@ -379,6 +447,6 @@ function sendEntryMail() {
   text-align:center;
   transition:transform .2s,box-shadow .2s;
 " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 30px rgba(0,0,0,0.25)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(0,0,0,0.2)'"
->✉<span>応募する</span></a>
+><span>応募する</span></a>
 </body>
 </html>
